@@ -1,5 +1,5 @@
 
-# DALL-E AI CLONE
+# Deploy a Full Stack MERN AI Image Generation App MidJourney & DALL E Clone
 
 Generate image based on Text.
 
