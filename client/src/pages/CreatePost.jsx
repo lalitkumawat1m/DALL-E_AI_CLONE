@@ -82,7 +82,19 @@ const CreatePost = () => {
     setForm({ ...form, prompt: randomPrompt })
   }
   const downloadGeneratedImage = (photo) => {
-    FileSaver.saveAs(photo, `download.jpg`);
+    if(form.prompt && form.photo){
+      try{
+        setLoading(true);
+        FileSaver.saveAs(photo, `download.jpg`);        
+      }catch(e){
+        alert(e);
+      }finally{
+        setLoading(false);
+      }     
+    }
+    else{
+      alert("Please generate an image before downloading!")
+    }   
   }
 
   return (
@@ -145,8 +157,8 @@ const CreatePost = () => {
             {generatingImg ? 'Generating...' : 'Generate'}
           </button>
           <button type="button" onClick={() => downloadGeneratedImage(form.photo)} className="outline-none bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-md w-full sm:w-auto px-5 py-2.5 border-none">
-            <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
             
+            {loading ? 'Downloading...' : <img src={download} alt="download" className="w-6 h-6 object-contain invert" />}
           </button>
         </div>
 
