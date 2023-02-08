@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { preview } from '../assets'
 import { getRandomPrompt } from '../utils'
 import { FormField, Loader } from "../components"
+import FileSaver from 'file-saver';
+import { download } from '../assets';
+import { downloadImage } from '../utils';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -13,6 +16,7 @@ const CreatePost = () => {
       photo: ''
     }
   );
+
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -55,7 +59,7 @@ const CreatePost = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({...form}),
+          body: JSON.stringify({ ...form }),
         });
 
         await response.json();
@@ -76,6 +80,9 @@ const CreatePost = () => {
   const handleSurpriceMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
     setForm({ ...form, prompt: randomPrompt })
+  }
+  const downloadGeneratedImage = (photo) => {
+    FileSaver.saveAs(photo, `download.jpg`);
   }
 
   return (
@@ -137,7 +144,12 @@ const CreatePost = () => {
             className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
             {generatingImg ? 'Generating...' : 'Generate'}
           </button>
+          <button type="button" onClick={() => downloadGeneratedImage(form.photo)} className="outline-none bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 rounded-md w-full sm:w-auto px-5 py-2.5 border-none">
+            <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
+            
+          </button>
         </div>
+
 
         <div className='mt-10'><p className='mt-2 text-[#666e75] text-[14px]'>
           you have created the image you wnat , you can share it with others in the community
