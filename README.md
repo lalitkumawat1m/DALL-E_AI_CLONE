@@ -1,7 +1,7 @@
 
-# Deploy a Full Stack MERN AI Image Generation App MidJourney & DALL E Clone
+# A Full Stack MERN AI Image Generation App MidJourney & DALL E Clone
 
-Generate image based on Text.
+Generate images based on Text.
 Youtube video link - https://youtu.be/6hkkTlWaCNo
 
 
